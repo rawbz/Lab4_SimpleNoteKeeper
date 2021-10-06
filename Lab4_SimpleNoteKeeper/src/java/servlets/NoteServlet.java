@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlets;
 
 import java.io.*;
@@ -22,65 +18,57 @@ public class NoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String path = getServletContext().getRealPath("/WEB-INF/note.txt");
-        // to read files
-        BufferedReader br = new BufferedReader(new FileReader(new File(path)));
-        
-        String title = br.readLine();
-        String contents = br.readLine();
+            String path = getServletContext().getRealPath("/WEB-INF/note.txt");
+            // to read files
+            BufferedReader br = new BufferedReader(new FileReader(new File(path)));
             
-        Note myNote = new Note(title, contents);
-        
-        request.setAttribute("note", myNote);
+            String title = br.readLine();
+            String contents = br.readLine();
+            
+            Note myNote = new Note();
+
+            myNote.setTitle(title);
+            myNote.setContents(contents);
+
+            request.setAttribute("note", myNote);
 
         if (request.getParameter("edit") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
             
-            System.out.println("i need to add something here i think");
+             getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
+            
             return;
             
-        } else {
-            title = br.readLine();
-            contents = br.readLine();
-            System.out.print("new assignment");
-            
-            Note newNote = new Note(title, contents);
-        
-            request.setAttribute("newnote", newNote);
+        } else { 
             
             getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);  
-            System.out.println("we went into the else clause");
-         
-            
+
             return;
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            
+
+        if(request.getParameter("edit") != null) {
             String updatedTitle = request.getParameter("edit_title");
             String updatedContents = request.getParameter("edit_contents");
 
-            Note updatedNote = new Note(updatedTitle, updatedContents);
-
-            request.setAttribute("newNote", updatedNote);
-
-        if(request.getParameter("edit") != null) {
+            Note newNote = new Note();
             
-            System.out.println("we pushed save");
+            newNote.setTitle(updatedTitle);
+            newNote.setContents(updatedContents);
+            
+            request.setAttribute("note", newNote);
 
             String path = getServletContext().getRealPath("/WEB-INF/note.txt");
-            // to write to a file
-            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
+
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)));
 
             pw.println(updatedTitle);
             pw.println(updatedContents);
             
-            pw.flush();
             pw.close();
             
             getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response); 

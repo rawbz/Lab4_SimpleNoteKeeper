@@ -34,7 +34,7 @@ public class Note implements Serializable {
         return contents;
     }
 
-    public void setContents(String comment) {
+    public void setContents(String contents) {
         this.contents = contents;
     }
     

@@ -9,13 +9,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Simple Note Keeper</title>
     </head>
-    <body>
-        <h1>Simple Note Keeper</h1>
-        <h2>View Note</h2>
-        <p>Title: ${note.title} ${newNote.title}</p>
-        <p>Contents: ${note.contents} ${newNote.contents}</p>
-        <a href="note?edit">Edit</a>
+        <body>
+            <div>
+                <h1>Simple Note Keeper</h1>
+                <h2>View Note</h2>
+            </div>
+            <div>
+                <p><strong>Title:</strong> ${note.title}</p>
+                <p><strong>Contents:</strong> ${note.contents}</p>
+                <a href="note?edit">Edit</a>   
+            </div>
+        
     </body>
 </html>
