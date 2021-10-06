@@ -18,11 +18,11 @@
                 <h2>Edit Note</h2>
             </div>
             <div>
-                <label>Title: </label><input type="text" name="edited_title" value="${entered_title}">
+                <label>Title: </label><input type="text" name="edit_title" value="${note.title} ${newNote.title}">
             </div>
             <div>
                 <label>Contents:</label><br>
-                <textarea name="edited_contents" value="${entered_contents}" rows="4" cols="30"></textarea>
+                <textarea name="edit_contents" value="" rows="4" cols="30">${note.contents} ${newNote.contents}</textarea>
             </div>
             <div>
                 <input type="submit" value="Save">
